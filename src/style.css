@@ -1,0 +1,122 @@
+:root {
+  --color-bg: #9ec9c8;
+  --color-surface: #dfe5dd;
+  --color-primary: #23395d;
+  --color-secondary: #4c7b91;
+  --color-accent: #ef3340;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-bg);
+  font-family: monospace;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  letter-spacing: 0.25rem;
+}
+
+.game-container {
+  position: relative;
+  width: 45rem;
+  height: 40.625rem;
+  background: var(--color-surface);
+  border: 0.1875rem solid var(--color-primary);
+  overflow: hidden;
+}
+
+.bricks {
+  position: absolute;
+  top: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.625rem;
+}
+
+.brick {
+  width: 4.375rem;
+  height: 1.5rem;
+  background: var(--color-secondary);
+}
+
+.ball {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  left: 50%;
+  bottom: 12.5rem;
+  transform: translateX(-50%);
+}
+
+.paddle {
+  position: absolute;
+  width: 5.625rem;
+  height: 1.25rem;
+  background: var(--color-primary);
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+}
+
+.score {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 0.625rem;
+  color: var(--color-accent);
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.lives {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 0.625rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.life-icon {
+  width: 3rem;
+  height: 3rem;
+  fill: var(--color-accent);
+}
+
+.start-btn {
+  margin-top: 1.25rem;
+  padding: 0.75rem 2.25rem;
+  background: var(--color-surface);
+  border: 0.1875rem solid var(--color-primary);
+  color: var(--color-accent);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+}
