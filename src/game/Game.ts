@@ -1,12 +1,18 @@
 import { Brick } from "./Brick";
+import { Input } from "./Input";
+import { Paddle } from "./Paddle";
 
 export class Game {
+    paddle: Paddle;
     bricks: Brick[] = [];
 
     constructor(
         private canvas: HTMLCanvasElement,
         private ctx: CanvasRenderingContext2D
     ) {
+        this.paddle = new Paddle(canvas.width);
+        new Input(this.paddle);
+
         this.createBricks();
     }
 
@@ -32,8 +38,14 @@ export class Game {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.paddle.draw(this.ctx);
+
         for (const brick of this.bricks) {
             brick.draw(this.ctx);
         }
+    }
+
+    update() {
+        this.paddle.update();
     }
 }

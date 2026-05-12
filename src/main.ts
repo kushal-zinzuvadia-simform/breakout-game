@@ -1,4 +1,4 @@
-import { Game } from "./Game";
+import { Game } from "./game/Game";
 
 // Draw lives
 const livesContainer = document.querySelector(".lives");
@@ -32,6 +32,7 @@ const game = new Game(canvas, ctx);
 
 function gameLoop() {
   game.draw();
+  game.update();
   requestAnimationFrame(gameLoop);
 }
 

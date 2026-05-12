@@ -11,7 +11,7 @@ export class Brick {
     draw(ctx: CanvasRenderingContext2D) {
         if (this.destroyed) return;
 
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "#4c7b91";
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
