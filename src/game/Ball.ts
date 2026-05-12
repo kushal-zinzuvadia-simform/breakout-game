@@ -2,7 +2,7 @@ import type { Paddle } from "./Paddle";
 import { loseLife } from "../ui/lives";
 
 export class Ball {
-    x = 300;
+    x = 220;
     y = 400;
 
     radius = 10;
@@ -13,9 +13,7 @@ export class Ball {
     constructor(
         public canvasWidth: number,
         public canvasHeight: number
-    ) {
-        this.x = (canvasWidth / 2);
-    }
+    ) { }
 
     draw(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
@@ -60,7 +58,7 @@ export class Ball {
     }
 
     reset() {
-        this.x = this.canvasWidth / 2;
+        this.x = 220;
         this.y = 400;
 
         this.dx = 3;
