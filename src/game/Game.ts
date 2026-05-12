@@ -2,12 +2,13 @@ import { Ball } from "./Ball";
 import { Brick } from "./Brick";
 import { Input } from "./Input";
 import { Paddle } from "./Paddle";
-import { updateScore } from "../ui/score";
+import { resetScore, updateScore } from "../ui/score";
 
 export class Game {
     paddle: Paddle;
     bricks: Brick[] = [];
     ball: Ball;
+    isWon = false;
 
     constructor(
         private canvas: HTMLCanvasElement,
@@ -52,7 +53,9 @@ export class Game {
             ) {
                 brick.destroyed = true;
                 this.ball.dy *= -1;
-                updateScore(10);
+                if (updateScore(10) === 420) {
+                    this.isWon = true;
+                }
             }
         }
     }
@@ -74,5 +77,6 @@ export class Game {
 
         this.bricks = [];
         this.createBricks();
+        resetScore();
     }
 }

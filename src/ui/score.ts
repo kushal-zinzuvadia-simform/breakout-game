@@ -9,6 +9,7 @@ if (!scoreElement) {
 export function updateScore(points: number) {
     score += points;
     scoreElement!.textContent = `Score: ${score}`;
+    return score;
 }
 
 export function resetScore() {
