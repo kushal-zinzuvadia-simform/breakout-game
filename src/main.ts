@@ -2,9 +2,14 @@ import { Game } from "./game/Game";
 import { renderLives } from "./ui/lives";
 
 const canvas = document.getElementById("game-canvas");
+const startBtn = document.querySelector(".start-btn");
 
 if (!(canvas instanceof HTMLCanvasElement)) {
   throw new Error("Canvas not found");
+}
+
+if (!(startBtn instanceof HTMLButtonElement)) {
+  throw new Error("Start button not found");
 }
 
 canvas.width = 720;
@@ -19,7 +24,7 @@ if (!ctx) {
 export const game = new Game(canvas, ctx);
 
 let animationId: number | null = null;
-let isGameOver = false;
+let isGameRunning = false;
 
 export function initCanvas() {
   renderLives();
@@ -29,7 +34,7 @@ export function initCanvas() {
 initCanvas();
 
 function gameLoop() {
-  if (isGameOver) {
+  if (!isGameRunning) {
     return;
   }
 
@@ -39,20 +44,31 @@ function gameLoop() {
   animationId = requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
-
 export function stopGame() {
-  isGameOver = true;
+  isGameRunning = false;
 
   if (animationId) {
     cancelAnimationFrame(animationId);
   }
 }
 
-export function restartGame() {
-  isGameOver = false;
+export function startGame() {
+  if (isGameRunning) {
+    return;
+  }
 
   game.reset();
+  isGameRunning = true;
 
   gameLoop();
 }
+
+export function restartGame() {
+  stopGame();
+  game.reset();
+  game.draw();
+}
+
+startBtn.addEventListener("click", () => {
+  startGame();
+});

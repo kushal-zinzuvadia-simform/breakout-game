@@ -14,7 +14,7 @@ export function renderLives() {
     for (let i = 0; i < lives; i++) {
         const heart = document.createElement("img");
 
-        heart.src = "./src/assets/heart.png";
+        heart.src = "src/assets/heart.png";
         heart.alt = "Life";
 
         heart.classList.add("life-icon");

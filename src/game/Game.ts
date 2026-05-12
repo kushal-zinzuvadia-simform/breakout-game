@@ -73,7 +73,6 @@ export class Game {
         this.ball.reset();
 
         this.bricks = [];
-
         this.createBricks();
     }
 }

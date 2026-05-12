@@ -8,7 +8,7 @@ export class Ball {
     radius = 10;
 
     dx = 3;
-    dy = -3;
+    dy = 3;
 
     constructor(
         public canvasWidth: number,
@@ -41,7 +41,13 @@ export class Ball {
         }
 
         // Paddle collision
-        if (this.x >= paddle.x && this.x < (paddle.x + paddle.width) && (this.y + this.radius) >= paddle.y && (this.y + this.radius) < (paddle.y + paddle.height)) {
+        if ((this.x + this.radius) > paddle.x &&
+            (this.x - this.radius) < (paddle.x + paddle.width) &&
+            (this.y + this.radius) >= paddle.y &&
+            (this.y - this.radius) <= (paddle.y + paddle.height) &&
+            this.dy > 0
+        ) {
+            this.y = paddle.y - this.radius;
             this.dy *= -1;
         }
 
@@ -55,9 +61,9 @@ export class Ball {
 
     reset() {
         this.x = this.canvasWidth / 2;
-        this.y = 300;
+        this.y = 400;
 
         this.dx = 3;
-        this.dy = -3;
+        this.dy = 3;
     }
 }
