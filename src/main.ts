@@ -1,18 +1,6 @@
 import { Game } from "./game/Game";
+import { renderLives } from "./ui/lives";
 
-// Draw lives
-const livesContainer = document.querySelector(".lives");
-const lives = 3;
-
-for (let life = 0; life < lives; life++) {
-  const life = document.createElement("img");
-  life.src = "./src/assets/heart.png";
-  life.classList.add("life-icon");
-
-  livesContainer?.appendChild(life);
-}
-
-// Init Canvas
 const canvas = document.getElementById("game-canvas");
 
 if (!(canvas instanceof HTMLCanvasElement)) {
@@ -28,12 +16,43 @@ if (!ctx) {
   throw new Error("2D context not supported");
 }
 
-const game = new Game(canvas, ctx);
+export const game = new Game(canvas, ctx);
+
+let animationId: number | null = null;
+let isGameOver = false;
+
+export function initCanvas() {
+  renderLives();
+  game.draw();
+}
+
+initCanvas();
 
 function gameLoop() {
+  if (isGameOver) {
+    return;
+  }
+
   game.draw();
   game.update();
-  requestAnimationFrame(gameLoop);
+
+  animationId = requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
+
+export function stopGame() {
+  isGameOver = true;
+
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+  }
+}
+
+export function restartGame() {
+  isGameOver = false;
+
+  game.reset();
+
+  gameLoop();
+}

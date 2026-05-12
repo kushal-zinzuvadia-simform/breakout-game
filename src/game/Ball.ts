@@ -1,4 +1,5 @@
 import type { Paddle } from "./Paddle";
+import { loseLife } from "../ui/lives";
 
 export class Ball {
     x = 300;
@@ -28,7 +29,7 @@ export class Ball {
 
     update(paddle: Paddle) {
         this.x += this.dx;
-        this.y -= this.dy;
+        this.y += this.dy;
 
         // Wall collision
         if (this.x - this.radius < 0 || this.x + this.radius > this.canvasWidth) {
@@ -45,11 +46,18 @@ export class Ball {
         }
 
         // Floor collision
-        if (this.y > (this.canvasHeight)) {
-            this.x = (this.canvasWidth / 2);
-            this.y = 300;
+        if (this.y - this.radius > this.canvasHeight) {
+            this.reset();
 
-            // Reduce lives remaining
+            loseLife();
         }
+    }
+
+    reset() {
+        this.x = this.canvasWidth / 2;
+        this.y = 300;
+
+        this.dx = 3;
+        this.dy = -3;
     }
 }

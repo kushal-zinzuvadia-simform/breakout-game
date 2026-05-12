@@ -2,6 +2,7 @@ import { Ball } from "./Ball";
 import { Brick } from "./Brick";
 import { Input } from "./Input";
 import { Paddle } from "./Paddle";
+import { updateScore } from "../ui/score";
 
 export class Game {
     paddle: Paddle;
@@ -41,6 +42,19 @@ export class Game {
     update() {
         this.paddle.update();
         this.ball.update(this.paddle);
+
+        for (const brick of this.bricks) {
+            if (!brick.destroyed &&
+                this.ball.x + this.ball.radius > brick.x &&
+                this.ball.x - this.ball.radius < brick.x + brick.width &&
+                this.ball.y + this.ball.radius > brick.y &&
+                this.ball.y - this.ball.radius < brick.y + brick.height
+            ) {
+                brick.destroyed = true;
+                this.ball.dy *= -1;
+                updateScore(10);
+            }
+        }
     }
 
     draw() {
@@ -52,5 +66,14 @@ export class Game {
         for (const brick of this.bricks) {
             brick.draw(this.ctx);
         }
+    }
+
+    reset() {
+        this.paddle.reset();
+        this.ball.reset();
+
+        this.bricks = [];
+
+        this.createBricks();
     }
 }

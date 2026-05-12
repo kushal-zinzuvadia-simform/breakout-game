@@ -30,4 +30,8 @@ export class Paddle {
 
         this.x = Math.max(0, Math.min(this.x, this.canvasWidth - this.width));
     }
+
+    reset() {
+        this.x = (this.canvasWidth / 2) - (this.width / 2);
+    }
 }
