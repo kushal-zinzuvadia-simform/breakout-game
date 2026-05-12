@@ -1,21 +1,8 @@
-const bricksContainer = document.getElementById("bricks");
+import { Game } from "./Game";
+
+// Draw lives
 const livesContainer = document.querySelector(".lives");
-
-if (!bricksContainer) {
-  throw new Error("Bricks container not found");
-}
-
-const rows = 7;
-const cols = 8;
 const lives = 3;
-
-for (let row = 0; row < rows; row++) {
-  for (let col = 0; col < cols; col++) {
-    const brick = document.createElement("div");
-    brick.classList.add("brick");
-    bricksContainer.appendChild(brick);
-  }
-}
 
 for (let life = 0; life < lives; life++) {
   const life = document.createElement("img");
@@ -24,3 +11,28 @@ for (let life = 0; life < lives; life++) {
 
   livesContainer?.appendChild(life);
 }
+
+// Init Canvas
+const canvas = document.getElementById("game-canvas");
+
+if (!(canvas instanceof HTMLCanvasElement)) {
+  throw new Error("Canvas not found");
+}
+
+canvas.width = 720;
+canvas.height = 650;
+
+const ctx = canvas.getContext("2d");
+
+if (!ctx) {
+  throw new Error("2D context not supported");
+}
+
+const game = new Game(canvas, ctx);
+
+function gameLoop() {
+  game.draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
