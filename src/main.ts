@@ -41,6 +41,7 @@ function gameLoop() {
       alert("You Win!");
     }, 100);
 
+    game.isWon = false;
     return;
   }
 
